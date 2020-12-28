@@ -1,0 +1,24 @@
+.nav {
+  grid-area: n;
+  background-color: rgb(147, 192, 24);
+}
+
+.nav-list {
+  list-style: none;
+}
+
+.nav-list .item {
+  display: block;
+  color: white;
+  text-decoration: none;
+
+  &.active a {
+    color: red;
+  }
+
+  a {
+    color: white;
+    font-style: normal;
+    text-decoration: none;
+  }
+}

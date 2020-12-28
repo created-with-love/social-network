@@ -2,7 +2,7 @@
   "name": "create-react-app-template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://created-with-love.github.io/PROJECT_NAME",
+  "homepage": "https://created-with-love.github.io/social-network",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
