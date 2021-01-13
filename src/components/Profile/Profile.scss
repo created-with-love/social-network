@@ -1,18 +1,15 @@
 .content-img {
   display: block;
   max-width: 100%;
+  width: 500px;
   height: auto;
 }
 
-.content {
-  grid-area: c;
-  background-color: rgb(77, 74, 212);
-}
-
-.posts {
-  .item {
-    &.active {
-      color: red;
-    }
-  }
+.avatar {
+  display: block;
+  width: 150px;
+  margin: 5px 0 5px 5px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: transparent;
 }

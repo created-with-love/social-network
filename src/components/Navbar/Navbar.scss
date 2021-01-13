@@ -12,13 +12,12 @@
   color: white;
   text-decoration: none;
 
-  &.active a {
-    color: red;
-  }
-
   a {
     color: white;
     font-style: normal;
     text-decoration: none;
+  }
+  .activeLink {
+    color: gold;
   }
 }

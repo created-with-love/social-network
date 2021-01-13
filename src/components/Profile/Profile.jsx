@@ -1,33 +1,27 @@
 import React from 'react';
+
+import MyPosts from './MyPosts';
 import './Profile.scss';
 
 export default function Profile() {
   return (
-    <div className="content">
+    <>
       <div>
         <img
-          src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"
+          src="https://pbs.twimg.com/media/DgZORr-XUAEBV7u.jpg"
           alt="content-img"
           className="content-img"
         />
       </div>
-      <div></div>
       <div>
         <img
-          src="https://dyl80ryjxr1ke.cloudfront.net/external_assets/hero_examples/hair_beach_v1785392215/original.jpeg"
+          src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png"
           alt="111"
-          width="200"
+          className="avatar"
         />
         Profile description
       </div>
-      <div>
-        My posts
-        <div>New post</div>
-        <div className="posts">
-          <div className="item active">post 1</div>
-          <div className="item">post 2</div>
-        </div>
-      </div>
-    </div>
+      <MyPosts />
+    </>
   );
 }

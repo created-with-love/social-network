@@ -1,24 +1,38 @@
 import React from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import './Navbar.scss';
 
-export default function Header() {
+export default function Navbar() {
+  const history = useHistory();
+  console.log(history);
+
   return (
     <nav className="nav">
       <ul className="nav-list">
         <li className="item">
-          <a href="/">Profile</a>
-        </li>
-        <li className="item active">
-          <a href="/">Messages</a>
-        </li>
-        <li className="item">
-          <a href="/">News</a>
+          <NavLink to="/profile" activeClassName="activeLink">
+            Profile
+          </NavLink>
         </li>
         <li className="item">
-          <a href="/">Music</a>
+          <NavLink to="/dialogs" activeClassName="activeLink">
+            Messages
+          </NavLink>
         </li>
         <li className="item">
-          <a href="/">Settings</a>
+          <NavLink to="/news" activeClassName="activeLink">
+            News
+          </NavLink>
+        </li>
+        <li className="item">
+          <NavLink to="/music" activeClassName="activeLink">
+            Music
+          </NavLink>
+        </li>
+        <li className="item">
+          <NavLink to="/settings" activeClassName="activeLink">
+            Settings
+          </NavLink>
         </li>
       </ul>
     </nav>
