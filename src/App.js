@@ -7,15 +7,23 @@ import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile/Profile';
 
-function App() {
+function App({ postsData, dialogsData, messagesData }) {
   return (
     <BrowserRouter>
       <div className="app-wrapper">
         <Header />
         <Navbar />
         <Container>
-          <Route path="/profile" component={Profile} />
-          <Route path="/dialogs" component={Dialogs} />
+          <Route
+            path="/profile"
+            render={() => <Profile postsData={postsData} />}
+          />
+          <Route
+            path="/dialogs"
+            render={() => (
+              <Dialogs dialogsData={dialogsData} messagesData={messagesData} />
+            )}
+          />
         </Container>
       </div>
     </BrowserRouter>

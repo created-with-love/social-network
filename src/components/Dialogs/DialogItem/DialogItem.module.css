@@ -1,0 +1,15 @@
+.dialogLink {
+  text-decoration: none;
+  color: black;
+}
+
+.activeDialog {
+  color: green;
+}
+
+.messages {
+  padding: 10px;
+}
+
+.messages .message {
+}

@@ -1,4 +1,8 @@
-.content-img {
+.descriptionBlock {
+  padding: 10px;
+}
+
+.contentImg {
   display: block;
   max-width: 100%;
   width: 500px;

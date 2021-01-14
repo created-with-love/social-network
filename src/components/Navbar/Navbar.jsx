@@ -1,11 +1,8 @@
 import React from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './Navbar.scss';
 
 export default function Navbar() {
-  const history = useHistory();
-  console.log(history);
-
   return (
     <nav className="nav">
       <ul className="nav-list">

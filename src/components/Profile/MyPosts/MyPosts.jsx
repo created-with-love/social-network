@@ -1,19 +1,30 @@
 import React from 'react';
-import './MyPosts.scss';
+import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
-function MyPosts() {
+function MyPosts({ postsData }) {
   return (
-    <div>
-      My posts
+    <div className={s.myPosts}>
+      <h3>My posts</h3>
       <div>New post</div>
       <div>
-        <textarea></textarea>
-        <button>Add post</button>
+        <div>
+          <textarea></textarea>
+        </div>
+        <div>
+          <button>Add post</button>
+        </div>
       </div>
-      <div className="posts">
-        <Post message="Hi, lads. How to became successful here?" likes="5" />
-        <Post message="It`s my first post!" likes="11" />
+      <div className={s.posts}>
+        {postsData &&
+          postsData.map(({ id, message, likesCount }) => (
+            <Post
+              message={message}
+              likes={likesCount}
+              id={id}
+              key={`id-${id}`}
+            />
+          ))}
       </div>
     </div>
   );

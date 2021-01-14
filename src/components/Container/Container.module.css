@@ -1,5 +1,5 @@
 .content {
+  width: 1024px;
   grid-area: c;
   background-color: rgba(76, 74, 212, 0.198);
-  width: 1024px;
 }
