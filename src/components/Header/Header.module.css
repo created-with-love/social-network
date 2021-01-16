@@ -1,10 +1,11 @@
 .header {
   grid-area: h;
-  background-color: rgb(0, 128, 0);
+  background-color: #23a455;
 }
 
 .logo {
   display: block;
   background-color: inherit;
+  padding-top: 10px;
   margin-left: 30px;
 }

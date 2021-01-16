@@ -1,8 +1,18 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import Sidebar from '../Sidebar';
 import './Navbar.scss';
 
 export default function Navbar() {
+  const location = useLocation();
+  const [isCurrentUrlProfile, setUrl] = useState(
+    () => location.pathname === '/profile',
+  );
+
+  useEffect(() => {
+    setUrl(location.pathname === '/profile');
+  }, [location]);
+
   return (
     <nav className="nav">
       <ul className="nav-list">
@@ -32,6 +42,7 @@ export default function Navbar() {
           </NavLink>
         </li>
       </ul>
+      {isCurrentUrlProfile && <Sidebar />}
     </nav>
   );
 }

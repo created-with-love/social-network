@@ -1,16 +1,22 @@
 .nav {
   grid-area: n;
   background-color: rgb(147, 192, 24);
+  font-family: 'Noto Sans', sans-serif;
+  display: block;
 }
 
 .nav-list {
   list-style: none;
+  height: 200px;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 .nav-list .item {
   display: block;
   color: white;
   text-decoration: none;
+  padding: 5px;
 
   a {
     color: white;
@@ -20,4 +26,8 @@
   .activeLink {
     color: gold;
   }
+}
+
+.nav-list .item:last-child {
+  margin-top: 15px;
 }

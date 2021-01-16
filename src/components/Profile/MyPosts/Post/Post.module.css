@@ -15,3 +15,13 @@
 .item__likeBtn:hover {
   cursor: pointer;
 }
+
+.postBody {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.messageText {
+  margin-left: 10px;
+}

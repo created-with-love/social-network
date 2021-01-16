@@ -1,0 +1,22 @@
+.friendAva {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.friendsList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.friendsTitle {
+  text-align: center;
+  color: #fff;
+}
+
+.friendsContainer {
+  margin-top: 50px;
+}

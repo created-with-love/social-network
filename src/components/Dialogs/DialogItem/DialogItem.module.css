@@ -1,15 +1,43 @@
-.dialogLink {
-  text-decoration: none;
-  color: black;
+.dialog {
+  display: flex;
+  justify-content: c;
+  align-items: center;
+  transition: all 250ms ease-in;
 }
 
-.activeDialog {
-  color: green;
+.dialog:hover {
+  cursor: pointer;
+  background-color: rgba(128, 128, 128, 0.418);
+  border-radius: 5px;
+}
+
+.dialogLink {
+  text-decoration: none;
+  padding-left: 5px;
+  color: black;
 }
 
 .messages {
   padding: 10px;
 }
 
-.messages .message {
+.avatar {
+  display: block;
+  width: 50px;
+  height: auto;
+  border-radius: 50%;
+}
+
+.active {
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.active:hover {
+  background-color: #fff;
+}
+
+.active > .dialogLink {
+  color: green;
+  font-weight: 700;
 }

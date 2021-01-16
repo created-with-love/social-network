@@ -7,7 +7,7 @@ import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile/Profile';
 
-function App({ postsData, dialogsData, messagesData }) {
+function App({ appState }) {
   return (
     <BrowserRouter>
       <div className="app-wrapper">
@@ -16,13 +16,11 @@ function App({ postsData, dialogsData, messagesData }) {
         <Container>
           <Route
             path="/profile"
-            render={() => <Profile postsData={postsData} />}
+            render={() => <Profile state={appState.profilePage} />}
           />
           <Route
             path="/dialogs"
-            render={() => (
-              <Dialogs dialogsData={dialogsData} messagesData={messagesData} />
-            )}
+            render={() => <Dialogs state={appState.dialogsPage} />}
           />
         </Container>
       </div>

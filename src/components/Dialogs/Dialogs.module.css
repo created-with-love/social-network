@@ -5,4 +5,19 @@
 
 .dialogsItems {
   padding: 10px;
+  border-right: 1px solid gray;
+}
+
+.messages {
+  padding: 30px 10px 20px 20px;
+}
+
+.formTextarea {
+  margin-top: 25px;
+}
+
+.sendMessageContainer {
+  display: flex;
+  margin-top: 10px;
+  justify-content: flex-end;
 }

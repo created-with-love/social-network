@@ -1,12 +1,17 @@
 .descriptionBlock {
+  display: flex;
+}
+
+.descriptionBlock {
   padding: 10px;
 }
 
-.contentImg {
+.profileBGImage {
   display: block;
-  max-width: 100%;
-  width: 500px;
-  height: auto;
+  width: 100%;
+  height: 210px;
+  background-image: url('https://www.mundosamurai.com/wp-content/uploads/elementor/thumbs/katana-154550_1280-ojyw87rczjt3pvm0ie0xde9n0m6umjvku56u5nb34w.png');
+  background-size: cover;
 }
 
 .avatar {
@@ -16,4 +21,9 @@
   height: 150px;
   border-radius: 50%;
   background-color: transparent;
+}
+
+.userDescription {
+  padding: 10px;
+  margin-left: 10px;
 }

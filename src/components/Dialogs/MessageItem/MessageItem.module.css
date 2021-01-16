@@ -1,0 +1,7 @@
+.message {
+  padding: 10px;
+}
+
+.message:nth-child(2n) {
+  background-color: #fff;
+}

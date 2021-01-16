@@ -2,15 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import data from './db.json';
+import state from './redux/state';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App
-      postsData={data.postsData}
-      dialogsData={data.dialogsData}
-      messagesData={data.messagesData}
-    />
+    <App appState={state} />
   </React.StrictMode>,
   document.getElementById('root'),
 );
