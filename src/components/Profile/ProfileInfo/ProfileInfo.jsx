@@ -12,7 +12,7 @@ const ProfileInfo = () => {
           className={s.avatar}
         />
         <div className={s.userDescription}>
-          <h3>Vladymyr Ivanchenko</h3>
+          <h3>Secret Ninja</h3>
           <p>Ukraine, Kiev</p>
           <p>Status: single</p>
         </div>

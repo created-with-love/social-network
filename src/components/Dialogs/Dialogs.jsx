@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem';
 import MessageItem from './MessageItem/MessageItem';
+import store from '../../redux/store';
 
 const Dialogs = ({ state }) => {
   const { dialogs, messages } = state;
@@ -20,7 +21,10 @@ const Dialogs = ({ state }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-
+    store.dispatch({
+      type: 'ADD-MESSAGE',
+      payload: messageText,
+    });
     setMessageText('');
   };
 
@@ -42,8 +46,8 @@ const Dialogs = ({ state }) => {
         {messages.map(({ id, message }) => (
           <MessageItem message={message} id={id} key={id} />
         ))}
-        <form>
-          <div onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
+          <div>
             <textarea
               value={messageText}
               className={classNames([s.formTextarea], 'form-control')}

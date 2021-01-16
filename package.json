@@ -2,7 +2,7 @@
   "name": "create-react-app-template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://created-with-love.github.io/social-network",
+  "homepage": "https://created-with-love.github.io/profile",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
@@ -17,6 +17,8 @@
     "react-icons": "^4.1.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "react-toastify": "^6.2.0",
+    "redux": "^4.0.5",
     "shortid": "^2.2.16",
     "web-vitals": "^0.2.4"
   },

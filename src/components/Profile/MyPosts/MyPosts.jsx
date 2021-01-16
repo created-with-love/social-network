@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import { addPost } from '../../../redux/state';
+import store from '../../../redux/store';
+
+const notify = () =>
+  toast('Can`t submit empty post!', {
+    position: 'top-right',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+  });
 
 function MyPosts({ postsData }) {
   const [postText, setPostText] = useState('');
@@ -14,14 +27,21 @@ function MyPosts({ postsData }) {
   const handleSubmit = e => {
     e.preventDefault();
 
-    addPost(postText);
-    setPostText('');
+    if (!postText) {
+      notify();
+    } else {
+      store.dispatch({
+        type: 'ADD-POST',
+        payload: postText,
+      });
+      setPostText('');
+    }
   };
 
   return (
     <div className={s.myPosts}>
       <h3>My posts</h3>
-
+      <ToastContainer />
       <form onSubmit={handleSubmit}>
         <div>
           <textarea
@@ -33,7 +53,7 @@ function MyPosts({ postsData }) {
         </div>
         <div>
           <button type="submit" className="btn btn-primary">
-            Add post
+            Submit post
           </button>
         </div>
       </form>
