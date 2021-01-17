@@ -14,6 +14,7 @@
 
 .formTextarea {
   margin-top: 25px;
+  resize: none;
 }
 
 .sendMessageContainer {

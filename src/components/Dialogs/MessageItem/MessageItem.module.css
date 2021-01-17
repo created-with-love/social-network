@@ -1,7 +1,22 @@
 .message {
+  display: flex;
   padding: 10px;
+  align-items: center;
 }
 
-.message:nth-child(2n) {
-  background-color: #fff;
+.message:not(:last-child) {
+  margin-bottom: 3px;
+}
+
+.message.myMessage {
+  display: flex;
+  justify-content: flex-end;
+  background-color: rgba(255, 255, 255, 0.322);
+  border-radius: 5px;
+}
+
+.avatar {
+  display: block;
+  width: 50px;
+  margin: 0 5px 0 5px;
 }

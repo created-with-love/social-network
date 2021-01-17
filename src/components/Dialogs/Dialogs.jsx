@@ -5,11 +5,14 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem';
 import MessageItem from './MessageItem/MessageItem';
 import store from '../../redux/store';
+import { addMessage } from '../../redux/actions/actions';
 
 const Dialogs = ({ state }) => {
-  const { dialogs, messages } = state;
+  const { dialogs } = state;
   const [messageText, setMessageText] = useState('');
   const [activeDialog, setActiveDialog] = useState(1);
+  const currentMessages = dialogs.find(dialog => dialog.id === activeDialog)
+    .messages;
 
   const onDialogClick = id => {
     setActiveDialog(id);
@@ -21,17 +24,14 @@ const Dialogs = ({ state }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    store.dispatch({
-      type: 'ADD-MESSAGE',
-      payload: messageText,
-    });
+    store.dispatch(addMessage(activeDialog, messageText));
     setMessageText('');
   };
 
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>
-        {dialogs.map(({ name, id, avatar }, index) => (
+        {dialogs.map(({ name, id, avatar }) => (
           <DialogItem
             name={name}
             id={id}
@@ -43,8 +43,12 @@ const Dialogs = ({ state }) => {
         ))}
       </div>
       <div className={s.messages}>
-        {messages.map(({ id, message }) => (
-          <MessageItem message={message} id={id} key={id} />
+        {currentMessages.map(messageItem => (
+          <MessageItem
+            messageItem={messageItem}
+            key={messageItem.id}
+            userId={activeDialog}
+          />
         ))}
         <form onSubmit={handleSubmit}>
           <div>

@@ -8,10 +8,13 @@
 
 .profileBGImage {
   display: block;
-  width: 100%;
+  width: 95%;
   height: 210px;
   background-image: url('https://www.mundosamurai.com/wp-content/uploads/elementor/thumbs/katana-154550_1280-ojyw87rczjt3pvm0ie0xde9n0m6umjvku56u5nb34w.png');
-  background-size: cover;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0 auto 0 auto;
 }
 
 .avatar {

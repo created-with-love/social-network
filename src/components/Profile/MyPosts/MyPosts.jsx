@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import store from '../../../redux/store';
+import { addPost } from '../../../redux/actions/actions';
 
 const notify = () =>
   toast('Can`t submit empty post!', {
@@ -30,10 +31,7 @@ function MyPosts({ postsData }) {
     if (!postText) {
       notify();
     } else {
-      store.dispatch({
-        type: 'ADD-POST',
-        payload: postText,
-      });
+      store.dispatch(addPost(postText));
       setPostText('');
     }
   };

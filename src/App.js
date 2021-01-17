@@ -4,6 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import './App.scss';
 import Container from './components/Container/Container';
 import Dialogs from './components/Dialogs';
+import Footer from './components/Footer';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile/Profile';
@@ -27,6 +28,7 @@ function App() {
             render={() => <Dialogs state={appState.dialogsPage} />}
           />
         </Container>
+        <Footer />
       </div>
     </BrowserRouter>
   );
