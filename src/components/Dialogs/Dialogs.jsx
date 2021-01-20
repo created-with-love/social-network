@@ -1,62 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem';
 import MessageItem from './MessageItem/MessageItem';
-import store from '../../redux/store';
-import { addMessage } from '../../redux/actions/actions';
 
-const Dialogs = ({ state }) => {
-  const { dialogs } = state;
-  const [messageText, setMessageText] = useState('');
-  const [activeDialog, setActiveDialog] = useState(1);
-  const currentMessages = dialogs.find(dialog => dialog.id === activeDialog)
-    .messages;
-
-  const onDialogClick = id => {
-    setActiveDialog(id);
-  };
-
-  const handleTextArea = e => {
-    setMessageText(e.target.value);
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    store.dispatch(addMessage(activeDialog, messageText));
-    setMessageText('');
-  };
-
+const Dialogs = ({
+  dialogs,
+  onChange,
+  onSubmit,
+  onClick,
+  currentMessages,
+  messageText,
+  activeDialog,
+}) => {
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>
-        {dialogs.map(({ name, id, avatar }) => (
-          <DialogItem
-            name={name}
-            id={id}
-            key={`id-${id}`}
-            avatar={avatar}
-            active={activeDialog === id ? true : false}
-            onDialogClick={onDialogClick}
-          />
-        ))}
+        {dialogs &&
+          dialogs.map(({ name, id, avatar }) => (
+            <DialogItem
+              name={name}
+              id={id}
+              key={`id-${id}`}
+              avatar={avatar}
+              active={activeDialog === id ? true : false}
+              onDialogClick={() => onClick(id)}
+            />
+          ))}
       </div>
       <div className={s.messages}>
-        {currentMessages.map(messageItem => (
-          <MessageItem
-            messageItem={messageItem}
-            key={messageItem.id}
-            userId={activeDialog}
-          />
+        {currentMessages.map(item => (
+          <MessageItem messageItem={item} key={item.id} userId={activeDialog} />
         ))}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onSubmit}>
           <div>
             <textarea
               value={messageText}
               className={classNames([s.formTextarea], 'form-control')}
               aria-label="With textarea"
-              onChange={handleTextArea}
+              onChange={onChange}
               autoFocus={true}
             ></textarea>
           </div>

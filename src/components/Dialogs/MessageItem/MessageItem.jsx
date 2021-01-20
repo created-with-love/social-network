@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import s from './MessageItem.module.css';
-import store from '../../../redux/store';
+import store from '../../../redux/redux-store';
 
 const myAva =
   'https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png';

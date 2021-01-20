@@ -1,13 +1,13 @@
 import React from 'react';
-import MyPosts from './MyPosts';
+import MyPostsContainer from './MyPosts/MyPostsContainer';
 import s from './Profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-export default function Profile({ state }) {
+export default function Profile() {
   return (
     <div className={s.profile}>
       <ProfileInfo />
-      <MyPosts postsData={state.posts} />
+      <MyPostsContainer />
     </div>
   );
 }

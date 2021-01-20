@@ -1,52 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from 'classnames';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
-import store from '../../../redux/store';
-import { addPost } from '../../../redux/actions/actions';
 
-const notify = () =>
-  toast('Can`t submit empty post!', {
-    position: 'top-right',
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-  });
-
-function MyPosts({ postsData }) {
-  const [postText, setPostText] = useState('');
-
-  const handleTextArea = e => {
-    setPostText(e.target.value);
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    if (!postText) {
-      notify();
-    } else {
-      store.dispatch(addPost(postText));
-      setPostText('');
-    }
-  };
-
+function MyPosts({ state, onSubmit, onChange, postText }) {
   return (
     <div className={s.myPosts}>
       <h3>My posts</h3>
       <ToastContainer />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <div>
           <textarea
             value={postText}
             className={classNames([s.formTextarea], 'form-control')}
             aria-label="With textarea"
-            onChange={handleTextArea}
+            onChange={onChange}
           ></textarea>
         </div>
         <div>
@@ -56,8 +26,8 @@ function MyPosts({ postsData }) {
         </div>
       </form>
       <div className={s.posts}>
-        {postsData &&
-          postsData.map(({ id, message, likesCount }) => (
+        {state &&
+          state.map(({ id, message, likesCount }) => (
             <Post
               message={message}
               likes={likesCount}

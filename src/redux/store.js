@@ -1,7 +1,7 @@
-import { createStore } from 'redux';
-import shortid from 'shortid';
-
-import types from './actionTypes';
+// import { createStore } from 'redux';
+import dialogsReducer from './reducers/dialogsReducer';
+import profileReducer from './reducers/profileReducer';
+import sidebarReducer from './reducers/sidebarReducer';
 
 // const store = createStore();
 const store = {
@@ -139,32 +139,11 @@ const store = {
   subscribe(observer) {
     this._callSubscriber = observer;
   },
+
   dispatch(action) {
-    switch (action.type) {
-      case types.ADD_POST: {
-        const newPost = {
-          id: shortid.generate(),
-          message: action.payload,
-          likesCount: 0,
-        };
-        this._state.profilePage.posts.unshift(newPost);
-        break;
-      }
-      case types.ADD_MESSAGE: {
-        const newMessage = {
-          id: shortid.generate(),
-          message: action.payload.messageText,
-          myMessage: true,
-        };
-        const activeDialog = this._state.dialogsPage.dialogs.find(
-          dialog => dialog.id === action.payload.userId,
-        );
-        activeDialog.messages.push(newMessage);
-        break;
-      }
-      default:
-        return;
-    }
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+    this._state.sidebar = sidebarReducer(this._state.sidebar, action);
   },
 };
 

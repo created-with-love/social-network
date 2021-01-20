@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Sidebar.module.css';
-import store from '../../redux/store';
+import store from '../../redux/redux-store';
 
 const state = store.getState();
 const { friends } = state.sidebar;
