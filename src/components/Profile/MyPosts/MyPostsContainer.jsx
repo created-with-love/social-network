@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { addPost } from '../../../redux/actions/actions';
 import MyPosts from './MyPosts';
 import { getPosts } from '../../../redux/selectors';
-import StoreContext from '../../../StoreContext';
 
 const notify = () =>
   toast('Can`t submit empty post!', {
@@ -17,8 +18,8 @@ const notify = () =>
   });
 
 function MyPostsContainer() {
-  const store = React.useContext(StoreContext);
-  const posts = getPosts(store.getState());
+  const dispatch = useDispatch();
+  const posts = useSelector(getPosts);
   const [postText, setPostText] = useState('');
   const handleTextArea = e => {
     setPostText(e.target.value);
@@ -30,7 +31,7 @@ function MyPostsContainer() {
     if (!postText) {
       notify();
     } else {
-      store.dispatch(addPost(postText));
+      dispatch(addPost(postText));
       setPostText('');
     }
   };

@@ -1,15 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { getDialogs } from '../../../redux/selectors';
+
 import s from './MessageItem.module.css';
-import store from '../../../redux/redux-store';
 
 const myAva =
   'https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png';
 
 const MessageItem = ({ messageItem, userId }) => {
   const { id, message, myMessage } = messageItem;
-  const state = store.getState();
-  const user = state.dialogsPage.dialogs.find(dialog => dialog.id === userId);
+  const dialogs = useSelector(getDialogs);
+  const user = dialogs.find(dialog => dialog.id === userId);
   const dialogAvatar = user.avatar;
 
   if (!myMessage) {

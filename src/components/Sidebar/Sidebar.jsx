@@ -1,11 +1,11 @@
 import React from 'react';
-import s from './Sidebar.module.css';
-import store from '../../redux/redux-store';
+import { useSelector } from 'react-redux';
 
-const state = store.getState();
-const { friends } = state.sidebar;
+import { getFriends } from '../../redux/selectors';
+import s from './Sidebar.module.css';
 
 const Sidebar = () => {
+  const friends = useSelector(getFriends);
   return (
     <div className={s.friendsContainer}>
       <h4 className={s.friendsTitle}>Friends ({friends.length})</h4>

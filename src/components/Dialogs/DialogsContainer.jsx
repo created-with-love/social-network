@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { addMessage } from '../../redux/actions/actions';
 import Dialogs from './Dialogs';
 import { getDialogs } from '../../redux/selectors';
-import StoreContext from 'StoreContext';
 
 const DialogsContainer = () => {
-  const store = React.useContext(StoreContext);
-  const dialogs = getDialogs(store.getState());
+  const dispatch = useDispatch();
+  const dialogs = useSelector(getDialogs);
 
   const [messageText, setMessageText] = useState('');
   const [activeDialog, setActiveDialog] = useState(1);
@@ -23,7 +24,7 @@ const DialogsContainer = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    store.dispatch(addMessage(activeDialog, messageText));
+    dispatch(addMessage(activeDialog, messageText));
     setMessageText('');
   };
 
