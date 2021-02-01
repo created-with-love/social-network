@@ -14,3 +14,8 @@ export const addMessage = (userId, messageText) => ({
     userId,
   },
 });
+
+export const toggleLike = id => ({
+  type: types.TOGGLE_POST_LIKE,
+  payload: id,
+});

@@ -69,17 +69,29 @@ const initialState = {
   ],
 };
 
-const dialogsReducer = (state = initialState, action) => {
-  if (action.type === types.ADD_MESSAGE) {
+const dialogsReducer = (state = initialState, { type, payload }) => {
+  if (type === types.ADD_MESSAGE) {
     const newMessage = {
       id: shortid.generate(),
-      message: action.payload.messageText,
+      message: payload.messageText,
       myMessage: true,
     };
-    const activeDialog = state.dialogs.find(
-      dialog => dialog.id === action.payload.userId,
-    );
-    activeDialog.messages.push(newMessage);
+
+    // const currentDialog = state.dialogs.find(
+    //   (dialog) => dialog.id === payload.userId
+    // );
+    // currentDialog.messages = [...currentDialog.messages, newMessage];
+
+    return {
+      ...state,
+      dialogs: [
+        ...state.dialogs.map(dialog => {
+          return dialog.id === payload.userId
+            ? { ...dialog, messages: [...dialog.messages, newMessage] }
+            : { ...dialog, messages: [...dialog.messages] };
+        }),
+      ],
+    };
   }
 
   return state;

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { addPost } from '../../../redux/actions/actions';
+import { addPost, toggleLike } from '../../../redux/actions/actions';
 import MyPosts from './MyPosts';
 import { getPosts } from '../../../redux/selectors';
 
@@ -21,6 +21,7 @@ function MyPostsContainer() {
   const dispatch = useDispatch();
   const posts = useSelector(getPosts);
   const [postText, setPostText] = useState('');
+
   const handleTextArea = e => {
     setPostText(e.target.value);
   };
@@ -36,12 +37,17 @@ function MyPostsContainer() {
     }
   };
 
+  const handleLike = id => {
+    dispatch(toggleLike(id));
+  };
+
   return (
     <MyPosts
       onSubmit={handleSubmit}
       onChange={handleTextArea}
       postText={postText}
       state={posts}
+      handleLike={handleLike}
     />
   );
 }

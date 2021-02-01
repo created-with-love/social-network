@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { addMessage } from '../../redux/actions/actions';
@@ -14,19 +14,22 @@ const DialogsContainer = () => {
   const currentMessages = dialogs.find(dialog => dialog.id === activeDialog)
     .messages;
 
-  const onDialogClick = id => {
+  const onDialogClick = useCallback(id => {
     setActiveDialog(id);
-  };
+  }, []);
 
-  const handleTextArea = e => {
+  const handleTextArea = useCallback(e => {
     setMessageText(e.target.value);
-  };
+  }, []);
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    dispatch(addMessage(activeDialog, messageText));
-    setMessageText('');
-  };
+  const handleSubmit = useCallback(
+    e => {
+      e.preventDefault();
+      dispatch(addMessage(activeDialog, messageText));
+      setMessageText('');
+    },
+    [activeDialog, dispatch, messageText],
+  );
 
   return (
     <Dialogs
