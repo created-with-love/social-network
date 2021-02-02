@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile/Profile';
+import Users from './components/Users';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Container>
           <Route path="/profile" component={Profile} />
           <Route path="/dialogs" component={DialogsContainer} />
+          <Route path="/users" component={Users} />
         </Container>
         <Footer />
       </div>

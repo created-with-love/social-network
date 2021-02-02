@@ -3,6 +3,9 @@ const ADD_MESSAGE = 'ADD-MESSAGE';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
 const TOGGLE_POST_LIKE = 'TOGGLE_POST_LIKE';
+const FOLLOW = 'FOLLOW';
+const UNFOLLOW = 'UNFOLLOW';
+const SET_USERS = 'SET_USERS';
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
@@ -11,4 +14,7 @@ export default {
   UPDATE_NEW_POST_TEXT,
   UPDATE_NEW_MESSAGE_BODY,
   TOGGLE_POST_LIKE,
+  FOLLOW,
+  UNFOLLOW,
+  SET_USERS,
 };

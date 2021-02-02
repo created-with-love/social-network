@@ -41,6 +41,11 @@ export default function Navbar() {
             Settings
           </NavLink>
         </li>
+        <li className="item users-item">
+          <NavLink to="/users" activeClassName="activeLink">
+            Find users
+          </NavLink>
+        </li>
       </ul>
       {isCurrentUrlProfile && <Sidebar />}
     </nav>
