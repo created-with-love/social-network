@@ -1,16 +1,77 @@
 .userItem {
   display: flex;
+  position: relative;
   list-style: none;
   margin: 10px;
   width: 500px;
   border: 1px solid green;
   border-radius: 5px;
+  justify-content: flex-start;
   padding: 5px;
   box-shadow: 1px 1px 1px black;
+}
+
+.avatarNBtnBox {
+  width: 80px;
+}
+
+.button {
+  border-radius: 3px;
+  transition: all 200ms ease-in;
+}
+
+.button.followed {
+  background-color: rgba(214, 114, 0, 0.746);
+}
+
+.button.unfollowed {
+  background-color: rgba(0, 128, 0, 0.507);
+}
+
+.button.unfollowed:hover {
+  background-color: green;
+  color: #fff;
+}
+
+.button.followed:hover {
+  background-color: rgba(241, 3, 3, 0.767);
+  color: rgb(0, 0, 0);
 }
 
 .avatar {
   border-radius: 50%;
   margin-bottom: 5px;
-  margin-right: 15px;
+  margin-right: 10px;
+}
+
+.nameNStatusBox {
+  display: grid;
+  flex-wrap: wrap;
+  margin: 0 0 0 20px;
+  height: 70px;
+}
+
+.name {
+  font-weight: 700;
+}
+
+.status {
+  font-style: italic;
+}
+
+.locationBox {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 5px 10px 0 0;
+  text-align: right;
+  color: grey;
+}
+
+.country {
+  color: rgb(66, 63, 63);
+}
+
+.city {
+  font-style: italic;
 }

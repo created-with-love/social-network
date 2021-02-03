@@ -1,9 +1,12 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import s from './User.module.css';
+const defImg =
+  'https://library.kissclipart.com/20181212/ble/kissclipart-icon-name-svg-clipart-computer-icons-user-d5f11bae643dfd07.jpg';
 
 const User = ({ user, follow, unfollow }) => {
-  const { id, fullName, status, followed, location, imgUrl } = user;
+  const { id, name, status, followed, location, photos } = user;
 
   const followUser = () => {
     follow(id);
@@ -15,31 +18,40 @@ const User = ({ user, follow, unfollow }) => {
 
   return (
     <li id={id} className={s.userItem}>
-      <div>
+      <div className={s.avatarNBtnBox}>
         <div>
           <img
             alt="userAvatar"
-            src={imgUrl}
+            src={photos?.small ? photos.small : defImg}
             width="60"
             height="60"
             className={s.avatar}
           />
         </div>
         <div>
-          <button type="button" onClick={followed ? unfollowUser : followUser}>
+          <button
+            className={classNames(s.button, {
+              [s.followed]: followed,
+              [s.unfollowed]: !followed,
+            })}
+            type="button"
+            onClick={followed ? unfollowUser : followUser}
+          >
             {followed ? 'Unfollow' : 'Follow'}
           </button>
         </div>
       </div>
 
-      <div>
-        <div>{fullName}</div>
-        <div>{status}</div>
+      <div className={s.nameNStatusBox}>
+        <div className={s.name}>{name}</div>
+        <div className={s.status}>{status}</div>
       </div>
-      <div>
-        <div>{location.country}</div>
-        <div>{location.city}</div>
-      </div>
+      {location && (
+        <div className={s.locationBox}>
+          <div className={s.country}>{location?.country}</div>
+          <div className={s.city}>{location?.city}</div>
+        </div>
+      )}
     </li>
   );
 };

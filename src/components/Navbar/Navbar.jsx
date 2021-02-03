@@ -28,17 +28,17 @@ export default function Navbar() {
         </li>
         <li className="item">
           <NavLink to="/news" activeClassName="activeLink">
-            News
+            News (Soon)
           </NavLink>
         </li>
         <li className="item">
           <NavLink to="/music" activeClassName="activeLink">
-            Music
+            Music (Soon)
           </NavLink>
         </li>
         <li className="item">
           <NavLink to="/settings" activeClassName="activeLink">
-            Settings
+            Settings (Soon)
           </NavLink>
         </li>
         <li className="item users-item">
