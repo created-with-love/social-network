@@ -23,12 +23,12 @@ const User = ({ user, follow, unfollow }) => {
           <img
             alt="userAvatar"
             src={photos?.small ? photos.small : defImg}
-            width="60"
-            height="60"
+            width="80"
+            height="80"
             className={s.avatar}
           />
         </div>
-        <div>
+        <div className={s.followBtnBox}>
           <button
             className={classNames(s.button, {
               [s.followed]: followed,
@@ -44,7 +44,9 @@ const User = ({ user, follow, unfollow }) => {
 
       <div className={s.nameNStatusBox}>
         <div className={s.name}>{name}</div>
-        <div className={s.status}>{status}</div>
+        <div className={s.status}>
+          {status && status.length > 39 ? `${status.slice(0, 38)}...` : status}
+        </div>
       </div>
       {location && (
         <div className={s.locationBox}>

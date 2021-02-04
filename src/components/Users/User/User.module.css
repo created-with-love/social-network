@@ -9,6 +9,7 @@
   justify-content: flex-start;
   padding: 5px;
   box-shadow: 1px 1px 1px black;
+  background-color: rgba(145, 177, 155, 0.637);
 }
 
 .avatarNBtnBox {
@@ -38,6 +39,11 @@
   color: rgb(0, 0, 0);
 }
 
+.followBtnBox {
+  display: flex;
+  justify-content: center;
+}
+
 .avatar {
   border-radius: 50%;
   margin-bottom: 5px;
@@ -57,6 +63,7 @@
 
 .status {
   font-style: italic;
+  max-width: 100%;
 }
 
 .locationBox {

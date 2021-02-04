@@ -6,6 +6,8 @@ const TOGGLE_POST_LIKE = 'TOGGLE_POST_LIKE';
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
+const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
@@ -17,4 +19,6 @@ export default {
   FOLLOW,
   UNFOLLOW,
   SET_USERS,
+  SET_TOTAL_USERS_COUNT,
+  SET_CURRENT_PAGE,
 };

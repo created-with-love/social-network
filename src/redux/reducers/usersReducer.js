@@ -3,6 +3,9 @@ import types from '../actionTypes';
 
 const initialState = {
   users: [],
+  pageSize: 10,
+  totalUsersCount: 0,
+  currentPage: 1,
 };
 
 const usersReducer = (state = initialState, { type, payload }) => {
@@ -30,7 +33,20 @@ const usersReducer = (state = initialState, { type, payload }) => {
     case types.SET_USERS:
       return {
         ...state,
-        users: [...state.users, ...payload],
+        // users: [...state.users, ...payload],
+        users: [...payload],
+      };
+
+    case types.SET_TOTAL_USERS_COUNT:
+      return {
+        ...state,
+        totalUsersCount: payload,
+      };
+
+    case types.SET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: payload,
       };
 
     default:
@@ -46,6 +62,14 @@ export const unfollowAC = userId => ({
 export const setUsersAC = users => ({
   type: types.SET_USERS,
   payload: users,
+});
+export const setTotalUsers = count => ({
+  type: types.SET_TOTAL_USERS_COUNT,
+  payload: count,
+});
+export const setCurrentPage = page => ({
+  type: types.SET_CURRENT_PAGE,
+  payload: page,
 });
 
 export default usersReducer;
