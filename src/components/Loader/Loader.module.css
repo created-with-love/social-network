@@ -1,0 +1,11 @@
+.loaderContainer {
+  position: absolute;
+  z-index: 120;
+  left: 0;
+  right: 0;
+  top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  /* Need a specific value to work */
+}

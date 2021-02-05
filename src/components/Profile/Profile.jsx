@@ -3,10 +3,10 @@ import MyPostsContainer from './MyPosts/MyPostsContainer';
 import s from './Profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-export default function Profile() {
+export default function Profile({ profile }) {
   return (
     <div className={s.profile}>
-      <ProfileInfo />
+      <ProfileInfo profile={profile} />
       <MyPostsContainer />
     </div>
   );

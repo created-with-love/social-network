@@ -7,8 +7,8 @@ import Container from './components/Container/Container';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
-import Profile from './components/Profile/Profile';
-import Users from './components/Users';
+import ProfileContainer from './components/Profile/Profile.container';
+import UsersAPIComponent from './components/Users';
 
 function App() {
   return (
@@ -17,9 +17,9 @@ function App() {
         <Header />
         <Navbar />
         <Container>
-          <Route path="/profile" component={Profile} />
+          <Route path="/profile" component={ProfileContainer} />
           <Route path="/dialogs" component={DialogsContainer} />
-          <Route path="/users" component={Users} />
+          <Route path="/users" component={UsersAPIComponent} />
         </Container>
         <Footer />
       </div>

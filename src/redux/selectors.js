@@ -1,7 +1,16 @@
 export const getPosts = state => state.profilePage.posts;
 export const getDialogs = state => state.dialogsPage.dialogs;
 export const getFriends = state => state.sidebar.friends;
+
+// users page
+export const getUsersPage = state => state.usersPage;
 export const getUsers = state => state.usersPage.users;
 export const getUsersPageSize = state => state.usersPage.pageSize;
 export const getTotalUsersCount = state => state.usersPage.totalUsersCount;
 export const getCurrentPage = state => state.usersPage.currentPage;
+export const getFetchingStatus = state => state.usersPage.isFetching;
+
+//profile page
+export const getProfileFetchingStatus = state =>
+  state.profilePage.isProfileFetching;
+export const getUserProfilePage = state => state.profilePage.profile;

@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import s from './User.module.css';
+import { NavLink } from 'react-router-dom';
 const defImg =
   'https://library.kissclipart.com/20181212/ble/kissclipart-icon-name-svg-clipart-computer-icons-user-d5f11bae643dfd07.jpg';
 
@@ -20,13 +21,15 @@ const User = ({ user, follow, unfollow }) => {
     <li id={id} className={s.userItem}>
       <div className={s.avatarNBtnBox}>
         <div>
-          <img
-            alt="userAvatar"
-            src={photos?.small ? photos.small : defImg}
-            width="80"
-            height="80"
-            className={s.avatar}
-          />
+          <NavLink to={`/profile/${id}`}>
+            <img
+              alt="userAvatar"
+              src={photos?.small ? photos.small : defImg}
+              width="80"
+              height="80"
+              className={s.avatar}
+            />
+          </NavLink>
         </div>
         <div className={s.followBtnBox}>
           <button

@@ -16,40 +16,67 @@ const initialState = {
       isLiked: false,
     },
   ],
+  profile: null,
+  isProfileFetching: false,
 };
 
 const profileReducer = (state = initialState, { type, payload }) => {
-  if (type === types.ADD_POST) {
-    const newPost = {
-      id: shortid.generate(),
-      message: payload,
-      likesCount: 0,
-      isLiked: false,
-    };
-    return {
-      ...state,
-      posts: [newPost, ...state.posts],
-    };
-  }
-  if (type === types.TOGGLE_POST_LIKE) {
-    const postLikeToggle = post => {
-      post.likesCount = post.isLiked
-        ? post.likesCount - 1
-        : post.likesCount + 1;
-      post.isLiked = !post.isLiked;
-      return post;
-    };
+  switch (type) {
+    case types.ADD_POST: {
+      const newPost = {
+        id: shortid.generate(),
+        message: payload,
+        likesCount: 0,
+        isLiked: false,
+      };
+      return {
+        ...state,
+        posts: [newPost, ...state.posts],
+      };
+    }
 
-    return {
-      ...state,
-      posts: [
-        ...state.posts.map(post => {
-          return post.id === payload ? postLikeToggle(post) : post;
-        }),
-      ],
-    };
+    case types.TOGGLE_POST_LIKE: {
+      const postLikeToggle = post => {
+        post.likesCount = post.isLiked
+          ? post.likesCount - 1
+          : post.likesCount + 1;
+        post.isLiked = !post.isLiked;
+        return post;
+      };
+
+      return {
+        ...state,
+        posts: [
+          ...state.posts.map(post => {
+            return post.id === payload ? postLikeToggle(post) : post;
+          }),
+        ],
+      };
+    }
+
+    case types.SET_USER_PROFILE: {
+      return { ...state, profile: payload };
+    }
+
+    case types.SET_PROFILE_FETCHING_STATE:
+      return {
+        ...state,
+        isProfileFetching: payload,
+      };
+
+    default:
+      return state;
   }
-  return state;
 };
+
+export const setUserProfile = profile => ({
+  type: types.SET_USER_PROFILE,
+  payload: profile,
+});
+
+export const setProfileFetchingState = isProfileFetching => ({
+  type: types.SET_PROFILE_FETCHING_STATE,
+  isProfileFetching,
+});
 
 export default profileReducer;

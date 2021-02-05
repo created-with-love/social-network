@@ -19,9 +19,9 @@
 
 .avatar {
   display: block;
-  width: 150px;
+  width: 180px;
   margin: 5px 0 5px 5px;
-  height: 150px;
+  height: 180px;
   border-radius: 50%;
   background-color: transparent;
 }
@@ -29,4 +29,13 @@
 .userDescription {
   padding: 10px;
   margin-left: 10px;
+}
+
+.infoLine {
+  font-weight: 600;
+}
+
+.userDescription p {
+  display: flex;
+  align-items: center;
 }

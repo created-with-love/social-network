@@ -6,6 +6,7 @@ const initialState = {
   pageSize: 10,
   totalUsersCount: 0,
   currentPage: 1,
+  isFetching: false,
 };
 
 const usersReducer = (state = initialState, { type, payload }) => {
@@ -49,6 +50,12 @@ const usersReducer = (state = initialState, { type, payload }) => {
         currentPage: payload,
       };
 
+    case types.SET_FETCHING_STATE:
+      return {
+        ...state,
+        isFetching: payload,
+      };
+
     default:
       return state;
   }
@@ -70,6 +77,10 @@ export const setTotalUsers = count => ({
 export const setCurrentPage = page => ({
   type: types.SET_CURRENT_PAGE,
   payload: page,
+});
+export const setFetchingState = dataIsFetching => ({
+  type: types.SET_FETCHING_STATE,
+  payload: dataIsFetching,
 });
 
 export default usersReducer;
