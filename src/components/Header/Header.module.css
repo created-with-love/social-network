@@ -1,6 +1,8 @@
 .header {
   grid-area: h;
   background-color: #23a455;
+  display: flex;
+  justify-content: space-between;
 }
 
 .logo {
@@ -8,4 +10,20 @@
   background-color: inherit;
   padding-top: 10px;
   margin-left: 35px;
+}
+
+.loginBlock {
+  display: grid;
+  padding: 10px;
+  align-items: center;
+}
+
+.loginLink {
+  color: #fff;
+}
+
+.userName {
+  font-family: 'Noto Sans', sans-serif;
+  margin: 0;
+  color: #fff;
 }

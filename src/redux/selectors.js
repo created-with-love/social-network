@@ -14,3 +14,9 @@ export const getFetchingStatus = state => state.usersPage.isFetching;
 export const getProfileFetchingStatus = state =>
   state.profilePage.isProfileFetching;
 export const getUserProfilePage = state => state.profilePage.profile;
+
+//auth
+export const getAuthObject = state => state.auth;
+export const getAuthFetching = state => state.auth.isFetching;
+export const getAuthStatus = state => state.auth.isAuth;
+export const getAuthLogin = state => state.auth.login;

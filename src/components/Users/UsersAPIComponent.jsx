@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getUsersPage } from '../../redux/selectors';
@@ -11,7 +11,7 @@ import {
   setCurrentPage,
   setFetchingState,
 } from '../../redux/reducers/usersReducer';
-// import { followUser, unfollowUser } from 'services/apiService';
+import { followUser, unfollowUser } from 'services/apiService';
 import { getData } from 'services/apiService';
 import UsersContainer from './Users.container';
 import Loader from 'components/Loader';
@@ -37,28 +37,40 @@ const UsersAPIComponent = () => {
       dispatch(setFetchingState(true));
       getData(`users?count=${pageSize}`).then(resp => {
         dispatch(setTotalUsers(resp.totalCount));
-        return dispatch(setUsersAC(resp.items));
+        dispatch(setUsersAC(resp.items));
       });
-      return dispatch(setFetchingState(false));
+      dispatch(setFetchingState(false));
     }
   }, [dispatch, users.length, pageSize]);
 
-  const follow = userId => {
-    dispatch(followAC(userId));
-    // followUser(userId);
-  };
+  const follow = useCallback(
+    userId => {
+      followUser(userId).then(data => {
+        if (data.resultCode === 0) {
+          dispatch(followAC(userId));
+        }
+      });
+    },
+    [dispatch],
+  );
 
-  const unfollow = userId => {
-    dispatch(unfollowAC(userId));
-    // unfollowUser(userId);
-  };
+  const unfollow = useCallback(
+    userId => {
+      unfollowUser(userId).then(data => {
+        if (data.resultCode === 0) {
+          dispatch(unfollowAC(userId));
+        }
+      });
+    },
+    [dispatch],
+  );
 
   const handleChange = (_, value) => {
     dispatch(setCurrentPage(value));
     dispatch(setFetchingState(true));
     // setHistory(query, value);
     getData(`/users?page=${value}&count=${pageSize}`).then(resp => {
-      return dispatch(setUsersAC(resp.items));
+      dispatch(setUsersAC(resp.items));
     });
     dispatch(setFetchingState(false));
     window.scrollTo({

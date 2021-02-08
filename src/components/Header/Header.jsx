@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import s from './Header.module.css';
 
-export default function Header() {
+export default function Header({ isUserAuth, isAuthFetching, loginName }) {
   return (
     <header className={s.header}>
       <Link to="/profile">
@@ -14,6 +14,18 @@ export default function Header() {
           className={s.logo}
         />
       </Link>
+
+      <div className={s.loginBlock}>
+        {isAuthFetching ? (
+          <h4>Loading...</h4>
+        ) : isUserAuth ? (
+          <p className={s.userName}>Welcome, {loginName}</p>
+        ) : (
+          <NavLink to="/login" className={s.loginLink}>
+            Login
+          </NavLink>
+        )}
+      </div>
     </header>
   );
 }

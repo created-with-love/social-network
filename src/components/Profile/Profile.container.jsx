@@ -9,6 +9,7 @@ import {
 } from 'redux/reducers/profileReducer';
 import { getProfileFetchingStatus, getUserProfilePage } from 'redux/selectors';
 import Loader from 'components/Loader';
+import { withRouter } from 'react-router-dom';
 
 class ProfileContainer extends React.Component {
   state = {
@@ -17,8 +18,12 @@ class ProfileContainer extends React.Component {
 
   componentDidMount() {
     setProfileFetchingState(true);
-    getData(`profile/${2}`).then(res => {
-      //   console.log(res);
+    let userId = this.props.match.params.userId;
+    if (!userId) {
+      userId = 2;
+    }
+
+    getData(`profile/${userId}`).then(res => {
       return this.props.setUserProfile(res);
     });
     setProfileFetchingState(false);
@@ -42,7 +47,10 @@ const mapStateToProps = state => ({
   profile: getUserProfilePage(state),
 });
 
+// обёртка для получения параметров url
+let WithUrlDataContainerComponent = withRouter(ProfileContainer);
+
 export default connect(mapStateToProps, {
   setUserProfile,
   setProfileFetchingState,
-})(ProfileContainer);
+})(WithUrlDataContainerComponent);
