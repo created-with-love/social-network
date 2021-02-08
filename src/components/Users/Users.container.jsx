@@ -11,6 +11,7 @@ const UsersContainer = ({
   totalPages,
   currentPage,
   handleChange,
+  isFollowingUser,
 }) => {
   return (
     <>
@@ -22,6 +23,7 @@ const UsersContainer = ({
               user={user}
               follow={follow}
               unfollow={unfollow}
+              isFollowingUser={isFollowingUser}
             />
           ))}
       </ul>

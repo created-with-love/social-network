@@ -2,11 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Profile from './Profile';
-import { getData } from 'services/apiService';
-import {
-  setUserProfile,
-  setProfileFetchingState,
-} from 'redux/reducers/profileReducer';
+
+import { getProfile } from 'redux/reducers/profileReducer';
 import { getProfileFetchingStatus, getUserProfilePage } from 'redux/selectors';
 import Loader from 'components/Loader';
 import { withRouter } from 'react-router-dom';
@@ -17,16 +14,9 @@ class ProfileContainer extends React.Component {
   };
 
   componentDidMount() {
-    setProfileFetchingState(true);
     let userId = this.props.match.params.userId;
-    if (!userId) {
-      userId = 2;
-    }
 
-    getData(`profile/${userId}`).then(res => {
-      return this.props.setUserProfile(res);
-    });
-    setProfileFetchingState(false);
+    this.props.getUserProfile(userId);
   }
 
   render() {
@@ -47,10 +37,14 @@ const mapStateToProps = state => ({
   profile: getUserProfilePage(state),
 });
 
+const mapDispatchToProps = dispatch => ({
+  getUserProfile: id => dispatch(getProfile(id)),
+});
+
 // обёртка для получения параметров url
 let WithUrlDataContainerComponent = withRouter(ProfileContainer);
 
-export default connect(mapStateToProps, {
-  setUserProfile,
-  setProfileFetchingState,
-})(WithUrlDataContainerComponent);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(WithUrlDataContainerComponent);

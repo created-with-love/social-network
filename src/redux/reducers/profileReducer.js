@@ -1,5 +1,6 @@
 import types from '../actionTypes';
 import shortid from 'shortid';
+import { getData } from 'services/apiService';
 
 const initialState = {
   posts: [
@@ -78,5 +79,18 @@ export const setProfileFetchingState = isProfileFetching => ({
   type: types.SET_PROFILE_FETCHING_STATE,
   isProfileFetching,
 });
+
+/////////// redux thunk
+export const getProfile = userId => dispatch => {
+  dispatch(setProfileFetchingState(true));
+  if (!userId) {
+    userId = 2;
+  }
+  getData(`profile/${userId}`).then(res => {
+    return dispatch(setUserProfile(res));
+  });
+
+  dispatch(setProfileFetchingState(false));
+};
 
 export default profileReducer;

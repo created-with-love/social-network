@@ -1,4 +1,6 @@
 import types from '../actionTypes';
+import { getData } from 'services/apiService';
+import { followUser, unfollowUser } from 'services/apiService';
 // import shortid from 'shortid';
 
 const initialState = {
@@ -7,6 +9,7 @@ const initialState = {
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
+  isFollowingUser: [],
 };
 
 const usersReducer = (state = initialState, { type, payload }) => {
@@ -56,11 +59,20 @@ const usersReducer = (state = initialState, { type, payload }) => {
         isFetching: payload,
       };
 
+    case types.TOGGLE_IS_FOLLOWING_PROGRESS:
+      return {
+        ...state,
+        isFollowingUser: payload.status
+          ? [...state.isFollowingUser, payload.id]
+          : [...state.isFollowingUser.filter(id => id !== payload.id)],
+      };
+
     default:
       return state;
   }
 };
 
+////////////// actions
 export const followAC = userId => ({ type: types.FOLLOW, payload: userId });
 export const unfollowAC = userId => ({
   type: types.UNFOLLOW,
@@ -82,5 +94,54 @@ export const setFetchingState = dataIsFetching => ({
   type: types.SET_FETCHING_STATE,
   payload: dataIsFetching,
 });
+
+//follow button will be disabled if following in progress
+export const toggleFollowingProgress = (status, id) => ({
+  type: types.TOGGLE_IS_FOLLOWING_PROGRESS,
+  payload: {
+    status,
+    id,
+  },
+});
+
+/////////// redux thunk async functions
+
+export const getUsersThunk = (pageSize, currentPage = 1) => dispatch => {
+  dispatch(setFetchingState(true));
+  dispatch(setCurrentPage(currentPage));
+  getData(`users?page=${currentPage}&count=${pageSize}`).then(resp => {
+    dispatch(setTotalUsers(resp.totalCount));
+    dispatch(setUsersAC(resp.items));
+  });
+  dispatch(setFetchingState(false));
+};
+
+export const followThunk = userId => dispatch => {
+  dispatch(toggleFollowingProgress(true, userId)); // thunk
+
+  followUser(userId).then(data => {
+    if (data.resultCode === 0) {
+      dispatch(followAC(userId));
+    } else {
+      console.log(data.message);
+    }
+  });
+
+  dispatch(toggleFollowingProgress(false, userId));
+};
+
+export const unfollowThunk = userId => dispatch => {
+  dispatch(toggleFollowingProgress(true, userId));
+
+  unfollowUser(userId).then(data => {
+    if (data.resultCode === 0) {
+      dispatch(unfollowAC(userId));
+    } else {
+      console.log(data.message);
+    }
+  });
+
+  dispatch(toggleFollowingProgress(false, userId));
+};
 
 export default usersReducer;

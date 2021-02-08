@@ -1,18 +1,13 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import {
+  getUsersThunk,
+  followThunk,
+  unfollowThunk,
+} from 'redux/reducers/usersReducer';
 import { getUsersPage } from '../../redux/selectors';
 
-import {
-  followAC,
-  unfollowAC,
-  setUsersAC,
-  setTotalUsers,
-  setCurrentPage,
-  setFetchingState,
-} from '../../redux/reducers/usersReducer';
-import { followUser, unfollowUser } from 'services/apiService';
-import { getData } from 'services/apiService';
 import UsersContainer from './Users.container';
 import Loader from 'components/Loader';
 
@@ -25,6 +20,7 @@ const UsersAPIComponent = () => {
     totalUsersCount,
     currentPage,
     isFetching,
+    isFollowingUser,
   } = useSelector(getUsersPage);
 
   const totalPages =
@@ -34,45 +30,26 @@ const UsersAPIComponent = () => {
 
   React.useEffect(() => {
     if (users.length === 0) {
-      dispatch(setFetchingState(true));
-      getData(`users?count=${pageSize}`).then(resp => {
-        dispatch(setTotalUsers(resp.totalCount));
-        dispatch(setUsersAC(resp.items));
-      });
-      dispatch(setFetchingState(false));
+      dispatch(getUsersThunk(pageSize));
     }
-  }, [dispatch, users.length, pageSize]);
+  }, [users.length, dispatch, pageSize]);
 
   const follow = useCallback(
     userId => {
-      followUser(userId).then(data => {
-        if (data.resultCode === 0) {
-          dispatch(followAC(userId));
-        }
-      });
+      dispatch(followThunk(userId));
     },
     [dispatch],
   );
 
   const unfollow = useCallback(
     userId => {
-      unfollowUser(userId).then(data => {
-        if (data.resultCode === 0) {
-          dispatch(unfollowAC(userId));
-        }
-      });
+      dispatch(unfollowThunk(userId));
     },
     [dispatch],
   );
 
   const handleChange = (_, value) => {
-    dispatch(setCurrentPage(value));
-    dispatch(setFetchingState(true));
-    // setHistory(query, value);
-    getData(`/users?page=${value}&count=${pageSize}`).then(resp => {
-      dispatch(setUsersAC(resp.items));
-    });
-    dispatch(setFetchingState(false));
+    dispatch(getUsersThunk(pageSize, value)); // thunk
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
@@ -89,6 +66,7 @@ const UsersAPIComponent = () => {
         totalPages={totalPages}
         currentPage={currentPage}
         handleChange={handleChange}
+        isFollowingUser={isFollowingUser}
       />
     </>
   );

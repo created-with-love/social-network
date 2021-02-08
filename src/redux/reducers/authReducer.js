@@ -1,3 +1,5 @@
+import { getData } from 'services/apiService';
+
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_FETCHING_STATE = 'SET_FETCHING_STATE';
 
@@ -43,5 +45,20 @@ export const setAuthFetching = isAuthFetching => ({
   type: SET_FETCHING_STATE,
   payload: isAuthFetching,
 });
+
+////////// redux thunk
+export const getCurrentUserThunk = dispatch => {
+  dispatch(setAuthFetching(true));
+
+  getData('/auth/me').then(response => {
+    if (response.resultCode === 0) {
+      const { id, email, login } = response.data;
+      dispatch(setUserData(id, email, login));
+    } else {
+      console.log(response.message);
+    }
+  });
+  dispatch(setAuthFetching(false));
+};
 
 export default authReducer;

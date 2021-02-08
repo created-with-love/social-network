@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 const defImg =
   'https://library.kissclipart.com/20181212/ble/kissclipart-icon-name-svg-clipart-computer-icons-user-d5f11bae643dfd07.jpg';
 
-const User = ({ user, follow, unfollow }) => {
+const User = ({ user, follow, unfollow, isFollowingUser }) => {
   const { id, name, status, followed, location, photos } = user;
 
   const followUser = () => {
@@ -37,6 +37,7 @@ const User = ({ user, follow, unfollow }) => {
               [s.followed]: followed,
               [s.unfollowed]: !followed,
             })}
+            disabled={isFollowingUser.some(num => num === id)}
             type="button"
             onClick={followed ? unfollowUser : followUser}
           >
