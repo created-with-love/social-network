@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.REACT_APP_API_URL;
+// const BASE_URL = process.env.REACT_APP_API_URL;
 // const API_KEY = process.env.REACT_APP_API_KEY;
 
 // credentials для post запроса идут третим параметром, для get/delete - вторым
@@ -23,8 +23,8 @@ export const getData = params => {
 
 export const followUser = userId => {
   try {
-    return instance.post(`${BASE_URL}follow/${userId}`).then(response => {
-      console.log(response);
+    return instance.post(`follow/${userId}`).then(response => {
+      // console.log(response);
       return response.data;
     });
   } catch (error) {
@@ -34,11 +34,17 @@ export const followUser = userId => {
 
 export const unfollowUser = userId => {
   try {
-    return instance.delete(`${BASE_URL}follow/${userId}`).then(response => {
-      console.log(response.data);
+    return instance.delete(`follow/${userId}`).then(response => {
       return response.data;
     });
   } catch (error) {
     console.log(error);
   }
+};
+
+// status - JSON object
+export const updateMyStatus = status => {
+  return instance.put(`profile/status`, { status }).then(response => {
+    return response.data;
+  });
 };

@@ -12,6 +12,7 @@ const SET_FETCHING_STATE = 'SET_FETCHING_STATE';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_PROFILE_FETCHING_STATE = 'SET_PROFILE_FETCHING_STATE';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
+const SET_STATUS = 'SET_STATUS';
 
 /* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
@@ -29,4 +30,5 @@ export default {
   SET_USER_PROFILE,
   SET_PROFILE_FETCHING_STATE,
   TOGGLE_IS_FOLLOWING_PROGRESS,
+  SET_STATUS,
 };

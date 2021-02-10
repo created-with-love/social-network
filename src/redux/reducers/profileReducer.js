@@ -1,6 +1,6 @@
 import types from '../actionTypes';
 import shortid from 'shortid';
-import { getData } from 'services/apiService';
+import { getData, updateMyStatus } from 'services/apiService';
 
 const initialState = {
   posts: [
@@ -19,6 +19,7 @@ const initialState = {
   ],
   profile: null,
   isProfileFetching: false,
+  status: '',
 };
 
 const profileReducer = (state = initialState, { type, payload }) => {
@@ -65,6 +66,12 @@ const profileReducer = (state = initialState, { type, payload }) => {
         isProfileFetching: payload,
       };
 
+    case types.SET_STATUS:
+      return {
+        ...state,
+        status: payload,
+      };
+
     default:
       return state;
   }
@@ -80,17 +87,36 @@ export const setProfileFetchingState = isProfileFetching => ({
   isProfileFetching,
 });
 
+export const setProfileStatus = status => ({
+  type: types.SET_STATUS,
+  payload: status,
+});
+
 /////////// redux thunk
 export const getProfile = userId => dispatch => {
   dispatch(setProfileFetchingState(true));
-  if (!userId) {
-    userId = 2;
-  }
+
   getData(`profile/${userId}`).then(res => {
     return dispatch(setUserProfile(res));
   });
 
   dispatch(setProfileFetchingState(false));
+};
+
+export const getProfileStatus = userId => dispatch => {
+  getData(`profile/status/${userId}`).then(data => {
+    return dispatch(setProfileStatus(data));
+  });
+};
+
+export const updateStatus = status => dispatch => {
+  updateMyStatus(status).then(response => {
+    if (response.resultCode === 0) {
+      dispatch(setProfileStatus(status));
+      console.log(response);
+      console.log(status);
+    }
+  });
 };
 
 export default profileReducer;

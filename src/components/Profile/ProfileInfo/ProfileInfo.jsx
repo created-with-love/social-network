@@ -3,14 +3,15 @@ import s from './ProfileInfo.module.css';
 import Loader from 'components/Loader/Loader';
 import { MdDone } from 'react-icons/md';
 import { ImCross } from 'react-icons/im';
+import ProfileStatus from './ProfileStatus';
 
-const ProfileInfo = ({ profile }) => {
+const ProfileInfo = ({ profile, status, updateStatus }) => {
   if (!profile) {
     return <Loader />;
   } else {
     return (
       <div className={s.profileInfo} id={profile.userId}>
-        <div className={s.profileBGImage}></div>
+        {/* <div className={s.profileBGImage}></div> */}
         <div className={s.descriptionBlock}>
           <img
             src={
@@ -23,18 +24,21 @@ const ProfileInfo = ({ profile }) => {
           />
           <div className={s.userDescription}>
             <h3>{profile.fullName ? profile.fullName : 'Anonymous'}</h3>
-            <p>
+            <div>
+              <ProfileStatus status={status} updateStatus={updateStatus} />
+            </div>
+            <div>
               <span className={s.infoLine}>About me: </span>
               {profile.aboutMe}
-            </p>
-            <p>
+            </div>
+            <div>
               <span className={s.infoLine}> Looking for job: </span>
               {profile.lookingForAJob ? <MdDone /> : <ImCross />}{' '}
-            </p>
-            <p>
+            </div>
+            <div>
               <span className={s.infoLine}>Job`s description: </span>
               {profile.lookingForAJobDescription}
-            </p>
+            </div>
           </div>
         </div>
       </div>

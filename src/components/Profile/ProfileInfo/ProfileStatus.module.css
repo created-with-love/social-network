@@ -1,0 +1,12 @@
+.statusDiv {
+  height: 30px;
+}
+
+.setStatusText {
+  color: rgba(128, 128, 128, 0.815);
+  font-style: italic;
+}
+
+.profileStatusBox:hover {
+  cursor: pointer;
+}
