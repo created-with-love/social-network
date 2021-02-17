@@ -45,3 +45,13 @@ export const updateMyStatus = status => {
     return response.data;
   });
 };
+
+export const loginToSite = (email, password, rememberMe) => {
+  return instance
+    .post(`auth/login`, { email, password, rememberMe })
+    .then(response => response.data);
+};
+
+export const logoutFromSite = () => {
+  return instance.delete(`auth/login`).then(response => response.data);
+};

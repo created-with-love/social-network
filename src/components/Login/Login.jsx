@@ -1,7 +1,12 @@
 import ErrorMessage from 'components/SignUp/ErrorMessage';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 import s from 'components/SignUp/SignUp.module.css';
+import { loginThunk } from 'redux/reducers/authReducer';
+import { getAuthObject } from 'redux/selectors';
 
 const Login = () => {
   const {
@@ -11,11 +16,20 @@ const Login = () => {
     formState: { isSubmitting },
   } = useForm();
 
+  const dispatch = useDispatch();
+
+  const { isAuth } = useSelector(getAuthObject);
+
   const onSubmit = (data, e) => {
+    const { email, password, rememberMe } = data;
     console.log(data);
-    alert(JSON.stringify(data));
+    dispatch(loginThunk(email, password, rememberMe));
     e.target.reset();
   };
+
+  if (isAuth) {
+    return <Redirect to="/profile" />;
+  }
 
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>

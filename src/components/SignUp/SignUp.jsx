@@ -21,11 +21,11 @@ const SignUp = () => {
     e.target.reset();
   };
 
-  const validateUserName = async value => {
-    await sleep(1000);
+  const validateIsFieldEmpty = value => {
     if (value === '') return false;
     return true;
   };
+
   return (
     <form className={s.form} onSubmit={handleSubmit(onSubmit)}>
       <h1 className={s.heading}>Sign Up</h1>
@@ -38,6 +38,7 @@ const SignUp = () => {
           minLength: 2,
           maxLength: 16,
           pattern: /^[A-Za-z]+$/i,
+          validate: validateIsFieldEmpty,
         })}
       />
       <ErrorMessage error={errors.firstName} />
@@ -51,6 +52,7 @@ const SignUp = () => {
           minLength: 4,
           maxLength: 16,
           pattern: /^[A-Za-z]+$/i,
+          validate: validateIsFieldEmpty,
         })}
       />
       <ErrorMessage error={errors.lastName} />
@@ -69,8 +71,8 @@ const SignUp = () => {
       <input
         className={s.input}
         name="username"
-        onBlur={e => validateUserName(e.target.value)}
-        ref={register({ required: true, validate: validateUserName })}
+        onBlur={e => validateIsFieldEmpty(e.target.value)}
+        ref={register({ required: true, validate: validateIsFieldEmpty })}
       />
       <ErrorMessage error={errors.username} />
 
@@ -78,7 +80,11 @@ const SignUp = () => {
       <input
         className={s.input}
         name="email"
-        ref={register({ required: true, pattern: /^\S+@\S+$/i })}
+        ref={register({
+          required: true,
+          pattern: /^\S+@\S+$/i,
+          validate: validateIsFieldEmpty,
+        })}
       />
       <ErrorMessage error={errors.email} />
 
@@ -92,6 +98,7 @@ const SignUp = () => {
           minLength: 7,
           maxLength: 16,
           pattern: /^[A-Za-z0-9]+$/i,
+          validate: validateIsFieldEmpty,
         })}
       />
       <ErrorMessage error={errors.password} />

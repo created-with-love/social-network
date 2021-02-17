@@ -1,8 +1,13 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
+
+import { logoutThunk } from 'redux/reducers/authReducer';
 import s from './Header.module.css';
 
 export default function Header({ isUserAuth, isAuthFetching, loginName }) {
+  const dispatch = useDispatch();
+
   return (
     <header className={s.header}>
       <Link to="/profile">
@@ -19,11 +24,39 @@ export default function Header({ isUserAuth, isAuthFetching, loginName }) {
         {isAuthFetching ? (
           <h4>Loading...</h4>
         ) : isUserAuth ? (
-          <p className={s.userName}>Welcome, {loginName}</p>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            {loginName && (
+              <p className={s.userName} style={{ marginRight: 10 }}>
+                Welcome, {loginName}
+              </p>
+            )}
+            <button type="button" onClick={() => dispatch(logoutThunk())}>
+              Logout
+            </button>
+          </div>
         ) : (
-          <NavLink to="/login" className={s.loginLink}>
-            Login
-          </NavLink>
+          <div>
+            <NavLink
+              to="/login"
+              className={s.loginLink}
+              activeClassName={s.activeLink}
+            >
+              Login
+            </NavLink>
+            <NavLink
+              to="/signup"
+              className={s.loginLink}
+              activeClassName={s.activeLink}
+            >
+              Sign Up
+            </NavLink>
+          </div>
         )}
       </div>
     </header>

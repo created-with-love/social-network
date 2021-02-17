@@ -20,6 +20,17 @@
 
 .loginLink {
   color: #fff;
+  margin-right: 15px;
+  transition: all 200ms ease-in;
+}
+
+.loginLink:hover {
+  color: #93c018;
+  text-decoration: none;
+}
+
+.activeLink {
+  color: #93c018;
 }
 
 .userName {
