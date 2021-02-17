@@ -1,5 +1,4 @@
 import DialogsContainer from 'components/Dialogs/DialogsContainer';
-import Login from 'components/Login/Login';
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -13,6 +12,8 @@ import PublicRoute from 'Routes/PublicRoute';
 import PrivateRoute from 'Routes/PrivateRoute';
 import Loader from 'components/Loader/Loader';
 import { getCurrentUserThunk } from 'redux/reducers/authReducer';
+import SignUp from 'components/SignUp';
+import Login from 'components/Login';
 
 const ProfileContainer = lazy(() =>
   import('./components/Profile/Profile.container'),
@@ -44,14 +45,13 @@ function App() {
               <UsersAPIComponent />
             </PrivateRoute>
 
+            <PublicRoute path="/signup" restricted>
+              <SignUp />
+            </PublicRoute>
+
             <PublicRoute path="/login" restricted>
               <Login />
             </PublicRoute>
-
-            {/* <Route path="/profile/:userId?" component={ProfileContainer} /> */}
-            {/* <Route path="/dialogs" component={DialogsContainer} />
-          <Route path="/users" component={UsersAPIComponent} /> */}
-            {/* <Route path="/login" component={Login} /> */}
           </Container>
           <Footer />
         </div>

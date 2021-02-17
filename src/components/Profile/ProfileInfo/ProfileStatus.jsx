@@ -43,4 +43,4 @@ const ProfileStatus = ({ status, updateStatus }) => {
   );
 };
 
-export default ProfileStatus;
+export default React.memo(ProfileStatus);
