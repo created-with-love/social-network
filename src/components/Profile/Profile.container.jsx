@@ -11,9 +11,14 @@ import {
   getProfileFetchingStatus,
   getUserProfilePage,
   getProfileStatusSelector,
+  getUserId,
 } from 'redux/selectors';
 import Loader from 'components/Loader';
 import { withRouter } from 'react-router-dom';
+
+const createHistory = require('history').createBrowserHistory;
+
+const history = createHistory();
 
 class ProfileContainer extends React.Component {
   state = {
@@ -23,7 +28,10 @@ class ProfileContainer extends React.Component {
   componentDidMount() {
     let userId = this.props.match.params.userId;
     if (!userId) {
-      userId = 2;
+      userId = this.props.userId;
+      if (!userId) {
+        history.push('/login');
+      }
     }
     this.props.getUserProfile(userId);
     this.props.getProfileStatus(userId);
@@ -51,6 +59,7 @@ const mapStateToProps = state => ({
   isProfileFetching: getProfileFetchingStatus(state),
   profile: getUserProfilePage(state),
   status: getProfileStatusSelector(state),
+  userId: getUserId(state),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -67,7 +67,7 @@ export const getCurrentUserThunk = dispatch => {
       const { id, email, login } = response.data;
       dispatch(setUserData(id, email, login));
     } else {
-      console.log(response.message);
+      console.log(response.messages[0]);
     }
   });
   dispatch(setAuthFetching(false));
@@ -75,29 +75,33 @@ export const getCurrentUserThunk = dispatch => {
 
 export const loginThunk = (email, password, rememberMe) => dispatch => {
   dispatch(setAuthFetching(true));
-  loginToSite(email, password, rememberMe).then(response => {
-    if (response.resultCode === 0) {
-      dispatch(setUserData(email, password, rememberMe));
-      dispatch(setAuthState(true));
-      getData('/auth/me');
-    } else {
-      console.log(response.message);
-    }
-    dispatch(setAuthFetching(false));
-  });
+  loginToSite(email, password, rememberMe)
+    .then(response => {
+      if (response.resultCode === 0) {
+        dispatch(setUserData(email, password, rememberMe));
+        dispatch(setAuthState(true));
+        getData('/auth/me');
+      } else {
+        console.log(response.message);
+      }
+    })
+    .catch(error => console.log(error))
+    .finally(dispatch(setAuthFetching(false)));
 };
 
 export const logoutThunk = () => dispatch => {
   dispatch(setAuthFetching(true));
-  logoutFromSite().then(response => {
-    if (response.resultCode === 0) {
-      dispatch(setUserData(null, null, null));
-      dispatch(setAuthState(false));
-    } else {
-      console.log(response.message);
-    }
-  });
-  dispatch(setAuthFetching(false));
+  logoutFromSite()
+    .then(response => {
+      if (response.resultCode === 0) {
+        dispatch(setUserData(null, null, null));
+        dispatch(setAuthState(false));
+      } else {
+        console.log(response.message);
+      }
+    })
+    .catch(error => console.log(error))
+    .finally(dispatch(setAuthFetching(false)));
 };
 
 export default authReducer;
