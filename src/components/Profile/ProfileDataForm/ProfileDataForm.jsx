@@ -75,7 +75,7 @@ const ProfileDataForm = ({
           <ProfileStatus status={status} updateStatus={updateStatus} />
         </div>
         <div>
-          <span className={s.infoLine}>About me: </span>
+          <div className={s.infoLine}>About me: </div>
           <textarea
             ref={register({ required: false })}
             name="aboutMe"
@@ -95,7 +95,7 @@ const ProfileDataForm = ({
         </div>
         {isLookingForJob && (
           <div>
-            <span className={s.infoLine}> Skills: </span>
+            <div className={s.infoLine}> Skills: </div>
             <textarea
               ref={register({ required: false })}
               name="lookingForAJobDescription"

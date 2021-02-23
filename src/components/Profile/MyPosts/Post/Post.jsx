@@ -3,12 +3,16 @@ import s from './Post.module.css';
 import { FaRegThumbsUp } from 'react-icons/fa';
 import classNames from 'classnames';
 
-function Post({ id, message, likes, handleLike, isLiked }) {
+function Post({ id, message, likes, handleLike, isLiked, photos }) {
   return (
     <div className={s.item} id={id}>
       <div className={s.postBody}>
         <img
-          src="https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png"
+          src={
+            photos?.small
+              ? photos.small
+              : 'https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png'
+          }
           alt="post"
         />
         <div className={s.messageText}>{message}</div>

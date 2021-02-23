@@ -5,8 +5,12 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
+import { useSelector } from 'react-redux';
+import { getProfilePhotos } from 'redux/selectors';
 
 function MyPosts({ state, onSubmit, onChange, postText, handleLike }) {
+  const photos = useSelector(getProfilePhotos);
+
   return (
     <div className={s.myPosts}>
       <h3>My posts</h3>
@@ -36,6 +40,7 @@ function MyPosts({ state, onSubmit, onChange, postText, handleLike }) {
               key={`id-${id}`}
               handleLike={handleLike}
               isLiked={isLiked}
+              photos={photos}
             />
           ))}
       </div>

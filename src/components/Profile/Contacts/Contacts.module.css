@@ -4,4 +4,15 @@
 
 .contacts {
   margin-left: 20px;
+  margin-top: 10px;
+}
+
+.contactFormItem {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.contactFormItem:not(:last-child) {
+  margin-bottom: 10px;
 }

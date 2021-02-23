@@ -75,7 +75,7 @@ const ContactsForm = ({ contacts, saveContactsForm }) => {
   return (
     <form className={s.contacts}>
       {contactsArr.map((contact, ind) => (
-        <li key={ind} className={s.contactItem}>
+        <li key={ind} className={s.contactFormItem}>
           {contact[0]}:{' '}
           <input
             type="text"

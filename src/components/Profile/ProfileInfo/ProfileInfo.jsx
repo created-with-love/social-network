@@ -63,7 +63,9 @@ const ProfileInfo = ({
               alt={profile.fullName ? profile.fullName : 'small user avatar'}
               className={s.avatar}
             />
-            {!isOwner && <input type="file" onChange={onMainPhotoSelected} />}
+            {!isOwner && editMode && (
+              <input type="file" onChange={onMainPhotoSelected} />
+            )}
           </div>
 
           {editMode ? (

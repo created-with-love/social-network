@@ -46,9 +46,9 @@ export const updateMyStatus = status => {
   });
 };
 
-export const loginToSite = (email, password, rememberMe) => {
+export const loginToSite = (email, password, rememberMe, captcha = null) => {
   return instance
-    .post(`auth/login`, { email, password, rememberMe })
+    .post(`auth/login`, { email, password, rememberMe, captcha })
     .then(response => response.data);
 };
 
@@ -70,4 +70,10 @@ export const savePhoto = photoFile => {
 
 export const saveProfile = profile => {
   return instance.put('profile', profile);
+};
+
+export const securityAPI = {
+  getCaptcha() {
+    return instance.get('security/get-captcha-url');
+  },
 };

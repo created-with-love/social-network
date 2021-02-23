@@ -1,8 +1,14 @@
-import { getData, loginToSite, logoutFromSite } from 'services/apiService';
+import {
+  getData,
+  loginToSite,
+  logoutFromSite,
+  securityAPI,
+} from 'services/apiService';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_FETCHING_STATE = 'SET_FETCHING_STATE';
 const SET_AUTH_STATE = 'SET_AUTH_STATE';
+const SET_CAPTCHA_URL = 'SET_CAPTCHA_URL';
 
 const initialState = {
   userId: null,
@@ -10,6 +16,7 @@ const initialState = {
   login: null,
   isFetching: false,
   isAuth: false,
+  captchaUrl: null,
 };
 
 const authReducer = (state = initialState, { type, payload }) => {
@@ -33,6 +40,11 @@ const authReducer = (state = initialState, { type, payload }) => {
         isAuth: payload,
       };
 
+    case SET_CAPTCHA_URL:
+      return {
+        ...state,
+        captchaUrl: payload,
+      };
     default:
       return state;
   }
@@ -58,6 +70,11 @@ export const setAuthFetching = isAuthFetching => ({
   payload: isAuthFetching,
 });
 
+export const setCaptchaUrl = url => ({
+  type: SET_CAPTCHA_URL,
+  payload: url,
+});
+
 ////////// redux thunk
 export const getCurrentUserThunk = dispatch => {
   dispatch(setAuthFetching(true));
@@ -73,14 +90,21 @@ export const getCurrentUserThunk = dispatch => {
   dispatch(setAuthFetching(false));
 };
 
-export const loginThunk = (email, password, rememberMe) => dispatch => {
+export const loginThunk = (
+  email,
+  password,
+  rememberMe,
+  captcha,
+) => dispatch => {
   dispatch(setAuthFetching(true));
-  loginToSite(email, password, rememberMe)
+  loginToSite(email, password, rememberMe, captcha)
     .then(response => {
       if (response.resultCode === 0) {
         dispatch(setUserData(email, password, rememberMe));
         dispatch(setAuthState(true));
         getData('/auth/me');
+      } else if (response.resultCode === 10) {
+        dispatch(getCaptchaUrlThunk());
       } else {
         console.log(response.message);
       }
@@ -102,6 +126,12 @@ export const logoutThunk = () => dispatch => {
     })
     .catch(error => console.log(error))
     .finally(dispatch(setAuthFetching(false)));
+};
+
+export const getCaptchaUrlThunk = () => async dispatch => {
+  const response = await securityAPI.getCaptcha();
+  const captchaUrl = response.data.url;
+  dispatch(setCaptchaUrl(captchaUrl));
 };
 
 export default authReducer;

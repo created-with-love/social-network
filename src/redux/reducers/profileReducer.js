@@ -157,7 +157,7 @@ export const savePhotoThunk = file => async dispatch => {
 export const saveProfileThunk = profile => async dispatch => {
   const response = await saveProfile(profile);
   if (response.data.resultCode === 0) {
-    console.log(response.data);
+    console.log(response.data.data);
     dispatch(saveProfileSuccess(response.data.data));
   } else {
     console.log('Something went wrong:', response);
