@@ -1,0 +1,19 @@
+.userDescription {
+  padding: 10px;
+  margin-left: 10px;
+}
+
+.infoLine {
+  font-weight: 600;
+}
+
+.userDescription p {
+  display: flex;
+  align-items: center;
+}
+
+.editBtn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}

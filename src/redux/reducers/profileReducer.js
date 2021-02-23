@@ -1,6 +1,11 @@
 import types from '../actionTypes';
 import shortid from 'shortid';
-import { getData, updateMyStatus } from 'services/apiService';
+import {
+  getData,
+  savePhoto,
+  saveProfile,
+  updateMyStatus,
+} from 'services/apiService';
 
 const initialState = {
   posts: [
@@ -57,7 +62,7 @@ const profileReducer = (state = initialState, { type, payload }) => {
     }
 
     case types.SET_USER_PROFILE: {
-      return { ...state, profile: payload };
+      return { ...state, profile: { ...state.profile, ...payload } };
     }
 
     case types.SET_PROFILE_FETCHING_STATE:
@@ -70,6 +75,18 @@ const profileReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         status: payload,
+      };
+
+    case types.SET_PROFILE_PHOTO:
+      return {
+        ...state,
+        profile: { ...state.profile, payload },
+      };
+
+    case types.SET_PROFILE_DATA:
+      return {
+        ...state,
+        profile: { ...state.profile, ...payload },
       };
 
     default:
@@ -92,6 +109,15 @@ export const setProfileStatus = status => ({
   payload: status,
 });
 
+export const savePhotoSuccess = photos => ({
+  type: types.SET_PROFILE_PHOTO,
+  payload: photos,
+});
+
+export const saveProfileSuccess = profile => ({
+  type: types.SET_PROFILE_DATA,
+  payload: profile,
+});
 /////////// redux thunk
 export const getProfile = userId => dispatch => {
   dispatch(setProfileFetchingState(true));
@@ -117,6 +143,25 @@ export const updateStatus = status => dispatch => {
       console.log(status);
     }
   });
+};
+
+export const savePhotoThunk = file => async dispatch => {
+  const response = await savePhoto(file);
+  if (response.data.resultCode === 0) {
+    dispatch(savePhotoSuccess(response.data.data.photos));
+  } else {
+    console.log('File should has .jpg, .jpeg or .png extension');
+  }
+};
+
+export const saveProfileThunk = profile => async dispatch => {
+  const response = await saveProfile(profile);
+  if (response.data.resultCode === 0) {
+    console.log(response.data);
+    dispatch(saveProfileSuccess(response.data.data));
+  } else {
+    console.log('Something went wrong:', response);
+  }
 };
 
 export default profileReducer;

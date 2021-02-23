@@ -6,6 +6,8 @@ import {
   getProfile,
   getProfileStatus,
   updateStatus,
+  savePhotoThunk,
+  saveProfileThunk,
 } from 'redux/reducers/profileReducer';
 import {
   getProfileFetchingStatus,
@@ -25,7 +27,7 @@ class ProfileContainer extends React.Component {
     isProfileLoading: this.props.isProfileFetching,
   };
 
-  componentDidMount() {
+  refreshProfile() {
     let userId = this.props.match.params.userId;
     if (!userId) {
       userId = this.props.userId;
@@ -33,8 +35,19 @@ class ProfileContainer extends React.Component {
         history.push('/login');
       }
     }
+
     this.props.getUserProfile(userId);
     this.props.getProfileStatus(userId);
+  }
+
+  componentDidMount() {
+    this.refreshProfile();
+  }
+
+  componentDidUpdate(prevProps, _prevState) {
+    if (prevProps.match.params.userId !== this.props.match.params.userId) {
+      this.refreshProfile();
+    }
   }
 
   render() {
@@ -48,6 +61,9 @@ class ProfileContainer extends React.Component {
             profile={this.props.profile}
             status={this.props.status}
             updateStatus={this.props.updateStatus}
+            isOwner={!!this.props.match.params.userId}
+            savePhoto={this.props.savePhoto}
+            saveProfile={this.props.saveProfile}
           />
         )}
       </>
@@ -66,6 +82,8 @@ const mapDispatchToProps = dispatch => ({
   getUserProfile: id => dispatch(getProfile(id)),
   getProfileStatus: id => dispatch(getProfileStatus(id)),
   updateStatus: status => dispatch(updateStatus(status)),
+  savePhoto: file => dispatch(savePhotoThunk(file)),
+  saveProfile: profile => dispatch(saveProfileThunk(profile)),
 });
 
 // обёртка для получения параметров url
